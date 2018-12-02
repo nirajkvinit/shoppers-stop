@@ -1,6 +1,6 @@
 export const ADD_GROCERY = "ADD_GROCERY";
 
-export function addGorceryById(id) {
+export function addGroceryById(id) {
   const action = {
     type: ADD_GROCERY,
     id
