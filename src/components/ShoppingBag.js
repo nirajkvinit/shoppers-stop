@@ -4,10 +4,9 @@ import { connect } from "react-redux";
 import { removeGroceryById } from "../actions";
 
 class ShoppingBag extends Component {
-  render() {
-    return (
-      <div className="col-md-4">
-        <h2 className="text-center">Shopping Bag</h2>
+  displayShoppingBag() {
+    if (this.props.shoppingBag.length > 0) {
+      return (
         <ul className="list-group">
           {this.props.shoppingBag.map(item => (
             <li
@@ -18,10 +17,26 @@ class ShoppingBag extends Component {
               <strong>{item.name}</strong> -{" "}
               <span className="label label-info">$ {item.cost}</span> -
               <span className="label label-warning">{item.calories} kcal</span>{" "}
-              - <span className="label label-primary">{item.weight} mg</span>
+              -<span className="label label-primary">{item.weight} mg</span>
             </li>
           ))}
         </ul>
+      );
+    } else {
+      return (
+        <ul className="list-group">
+          <li className="list-group-item">
+            <strong>Please Add an item to shopping bag.</strong>
+          </li>
+        </ul>
+      );
+    }
+  }
+  render() {
+    return (
+      <div className="col-md-4 shopping-bag-bg">
+        <h2 className="text-center">Shopping Bag</h2>
+        {this.displayShoppingBag()}
       </div>
     );
   }

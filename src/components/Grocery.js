@@ -4,9 +4,8 @@ import { addGroceryById } from "../actions";
 
 class Grocery extends Component {
   render() {
-    console.log("this.props ", this.props);
     return (
-      <div className="col-md-4">
+      <div className="col-md-4 grocery-bg">
         <h2 className="text-center">Grocery Items</h2>
         <ul className="list-group">
           {this.props.grocery.map(item => {
@@ -31,9 +30,10 @@ class Grocery extends Component {
   }
 }
 function mapStateToProps(state) {
-  console.log(state);
+  // console.log(state);
   return {
-    grocery: state.grocery
+    grocery: state.grocery,
+    spent: state.spendCalculator
   };
 }
 

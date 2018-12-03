@@ -1,19 +1,36 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
 
 class Stats extends Component {
   render() {
+    let cost = 0;
+    let calories = 0;
+    let weight = 0;
+    this.props.shoppingBag.forEach(item => {
+      cost += item.cost;
+      calories += item.calories;
+      weight += item.weight;
+    });
     return (
-      <div className="col-md-4">
+      <div className="col-md-3 stats-bg">
         <h2 className="text-center">Stats</h2>
         <ul className="list-group">
-          <li className="list-group-item">Lorem, ipsum dolor.</li>
-          <li className="list-group-item">Repellat, magnam dicta!</li>
-          <li className="list-group-item">Doloremque, placeat enim.</li>
-          <li className="list-group-item">Voluptatibus, molestiae eius?</li>
+          <li className="list-group-item">Cost $ {cost}</li>
+          <li className="list-group-item">Calories {calories} kcal</li>
+          <li className="list-group-item">Weight {weight} gm</li>
         </ul>
       </div>
     );
   }
 }
 
-export default Stats;
+function mapStateToProps(state) {
+  return {
+    shoppingBag: state.shoppingBag
+  };
+}
+
+export default connect(
+  mapStateToProps,
+  null
+)(Stats);
