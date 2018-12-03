@@ -3,6 +3,14 @@ import { connect } from "react-redux";
 import { addGroceryById } from "../actions";
 
 class Grocery extends Component {
+  buyWithinBudget(item) {
+    if (this.props.spent < item.cost) {
+      return () => alert("Your budget is low");
+    } else {
+      return () => this.props.addGroceryById(item.id);
+    }
+  }
+
   render() {
     return (
       <div className="col-md-4 grocery-bg">
@@ -13,7 +21,7 @@ class Grocery extends Component {
               <li
                 className="list-group-item"
                 key={item.id}
-                onClick={() => this.props.addGroceryById(item.id)}
+                onClick={this.buyWithinBudget(item)}
               >
                 <strong>{item.name}</strong> -{" "}
                 <span className="label label-info">$ {item.cost}</span> -
@@ -30,7 +38,6 @@ class Grocery extends Component {
   }
 }
 function mapStateToProps(state) {
-  // console.log(state);
   return {
     grocery: state.grocery,
     spent: state.spendCalculator
