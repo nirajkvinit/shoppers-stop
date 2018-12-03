@@ -1,4 +1,7 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
+
+import { removeGroceryById } from "../actions";
 
 class ShoppingBag extends Component {
   render() {
@@ -6,14 +9,31 @@ class ShoppingBag extends Component {
       <div className="col-md-4">
         <h2 className="text-center">Shopping Bag</h2>
         <ul className="list-group">
-          <li className="list-group-item">Lorem, ipsum dolor.</li>
-          <li className="list-group-item">Distinctio, facilis aliquid.</li>
-          <li className="list-group-item">Incidunt, earum non?</li>
-          <li className="list-group-item">Error, sit nobis?</li>
+          {this.props.shoppingBag.map(item => (
+            <li
+              className="list-group-item"
+              key={item.id}
+              onClick={() => this.props.removeGroceryById(item.id)}
+            >
+              <strong>{item.name}</strong> -{" "}
+              <span className="label label-info">$ {item.cost}</span> -
+              <span className="label label-warning">{item.calories} kcal</span>{" "}
+              - <span className="label label-primary">{item.weight} mg</span>
+            </li>
+          ))}
         </ul>
       </div>
     );
   }
 }
 
-export default ShoppingBag;
+function mapStateToProps(state) {
+  return {
+    shoppingBag: state.shoppingBag
+  };
+}
+
+export default connect(
+  mapStateToProps,
+  { removeGroceryById }
+)(ShoppingBag);
