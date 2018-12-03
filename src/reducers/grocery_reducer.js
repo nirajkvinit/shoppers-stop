@@ -6,11 +6,11 @@ export default function grocery(state = groceryItemsList, action) {
   switch (action.type) {
     case ADD_GROCERY:
       let grocery = state.filter(item => item.id !== action.id);
-      return grocery;
+      return grocery.sort((a, b) => a.id > b.id);
     case REMOVE_GROCERY:
       grocery = [...state, addToBag(action.id)];
-      return grocery;
+      return grocery.sort((a, b) => a.id > b.id);
     default:
-      return state;
+      return state.sort((a, b) => a.id > b.id);
   }
 }
